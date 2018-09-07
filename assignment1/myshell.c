@@ -45,11 +45,9 @@ void execCommand(){
         return ;
     }
     
-    if( strcmp(split[0],"exit") == 0);  
-    char *split[1000];
-    for (int i = 0; i < 1000; i++ ){ split[i] = NULL; } ){
+    if( strcmp(split[0],"exit") == 0){
         exit(0);
-    }
+    }  
     else if (strcmp(split[0], "cd") == 0){
         if(split[1] == NULL){
             //printf("Please specify a directory\n");
@@ -78,17 +76,9 @@ void execCommand(){
             for(int i = 0; i < 1000 && split[i] != NULL; i++){
                 free(split[i]);
             }
- 
-    while(1){
- 
-    while(1){
- 
-    while(1){
- 
-    while(1){
-
+        }
+    }
 }
-    while(1){
 
 void SIGINT_HANDLER(int sig){
     printf("\n");
