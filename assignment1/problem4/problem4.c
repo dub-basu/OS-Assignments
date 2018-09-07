@@ -96,6 +96,8 @@ int main(){
     printf("Enter r (number of repetetions):\t");
     scanf("%d",&r);
 
+    remove_queue(MSG_KEY);
+
     /* Create message queue */
     qid = msgget(MSG_KEY, IPC_CREAT | 0666);
 

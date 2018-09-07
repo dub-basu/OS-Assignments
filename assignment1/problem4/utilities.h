@@ -44,3 +44,17 @@ int get_pid_to_kill(int qid){
         return(p);
     }
 }
+
+void remove_queue(int qid){
+    int status;
+    char queue_id[4];
+    sprintf(queue_id, "%d", qid);
+    pid_t pid = fork();
+
+    if(pid == 0){
+        close(2);
+        if( execlp("ipcrm", "ipcrm","-Q", queue_id, NULL) == -1); 
+        exit(0);  
+    }
+    wait(&status);
+}
