@@ -1,4 +1,4 @@
- #include <stdio.h>
+#include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
 
@@ -39,7 +39,7 @@ int main(int argc, char *argv[])
 	
 	srand(time(NULL));
 	int fd[2];int n;
-	printf("Enter n followed by n integers\n", );
+	printf("Enter n followed by n integers\n");
 	scanf("%d",&n);
 	int val = 0,xx,yy,s=0,k=0;
 	int a[n];
