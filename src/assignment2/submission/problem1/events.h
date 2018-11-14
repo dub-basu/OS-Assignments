@@ -3,14 +3,13 @@
 #define left(x) (2*x + 1)
 #define right(x) (2*x + 2)
 #define parent(x) (x-1)/2
-// #include "get_process.h"
 
 typedef struct Event {
     int pid;
-    enum { Arrival, Allotted, CPUBurstComplete, TimerExpired, Preempted } event_type;
+    enum { Arrival, Allotted, CPUBurstComplete, TimerExpired } event_type;
     enum { Awaited, Occured } status;
     int time_of_occurence;
-    long long priority;
+    int priority;
 } Event;
 
 typedef struct EventQueue {
@@ -107,25 +106,15 @@ Event retrieve_event(EventQueue* event_queue, Process process_table[]){
     logger("HEAP", log_msg);
 
     event_queue -> number_of_events --;
-
-    // if(event_queue -> sched_policy == FCFS){
-    //     event_queue -> completed_events[event_queue -> number_of_completed_events] = first_event;
-    //     event_queue -> number_of_completed_events ++;
-    // }
+    
+    
+    if(event_queue -> sched_policy == FCFS){
+        event_queue -> completed_events[event_queue -> number_of_completed_events] = first_event;
+        event_queue -> number_of_completed_events ++;
+    }
 
     heapify(event_queue, 0, process_table);
     return(first_event);
-}
-
-Event peek_event(EventQueue* event_queue, Process process_table[]){
-    
-    if(event_queue -> number_of_events <= 0){
-        logger("ERROR", "No event available to peek. Returning NULL event");
-        Event null_event = {-1};
-        return(null_event);
-    }
-    Event top_event = event_queue -> events[0];
-    return(top_event);
 }
 
 #endif /* EVENTS_H */

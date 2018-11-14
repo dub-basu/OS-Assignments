@@ -11,7 +11,7 @@ typedef struct Process {
 int create_pcb(Process process_table[]){
 
     int n = 0;
-    char* filename = "test_2.csv";
+    char* filename = "process.csv";
     char* delimiter = ",";
     char log_msg[30];
 
@@ -19,10 +19,10 @@ int create_pcb(Process process_table[]){
 
     if(fptr == NULL){
         perror("Error");
-        // logger("TAG", "no such file log message");
+        logger("TAG", "no such file log message");
     } else {
 
-        // logger("PRE", "File read successfully");
+        logger("PRE", "File read successfully");
         const size_t line_size = 10;
         char* line = malloc(line_size);
         while (fgets(line, line_size, fptr) != NULL)  {
@@ -46,29 +46,16 @@ int create_pcb(Process process_table[]){
             process_table[n++] = proc;
 
             sprintf(log_msg, "New process. PID = %d", proc.pid);
-            // logger("PRE", log_msg);
+            logger("PRE", log_msg);
 
         }
         free(line);  
 
        
         sprintf(log_msg, "Read %d processes", n);
-        // logger("PRE", log_msg);
+        logger("PRE", log_msg);
 
         fclose(fptr);
     }
     return n;
-}
-
-void print_waiting_times(Process process_table[], int number_of_processes){
-
-    int i=0;
-    for(i=0;i<number_of_processes;i++){
-        printf("PID: %d\n", process_table[i].pid);
-        printf("Arrival Time: %d\n", process_table[i].arrival_time);
-        printf("CPU Burst: %d\n", process_table[i].cpu_burst);
-        printf("Termination Time: %d\n", process_table[i].termination_time);
-        printf("Wait Time: %d\n", process_table[i].wait_time);
-        printf("\n");
-    }
 }

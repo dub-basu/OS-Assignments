@@ -39,25 +39,18 @@ void run_fcfs_queue(int number_of_processes){
         Event retrieved = retrieve_event(&fcfs_queue, process_table);
         if(retrieved.pid == -1) break;
 
-        if(current_time < retrieved.time_of_occurence)
-            current_time = retrieved.time_of_occurence;
-
-        int burst_time;
-        burst_time = process_table[retrieved.pid - 1].time_left;
-
+        current_time += process_table[retrieved.pid - 1].cpu_burst;
+        
         Event new_event;
         new_event = retrieved;
 
-        // new_event.time_of_occurence = current_time;
         new_event.time_of_occurence = current_time;
+        
         new_event.event_type = Allotted;
         fcfs_queue.completed_events[fcfs_queue.number_of_completed_events] = new_event;
         fcfs_queue.number_of_completed_events++;
         CPU = new_event.pid;
 
-        current_time += burst_time;
-
-        new_event.time_of_occurence = current_time;
         new_event.event_type = CPUBurstComplete;
         fcfs_queue.completed_events[fcfs_queue.number_of_completed_events] = new_event;
         fcfs_queue.number_of_completed_events++;
@@ -65,6 +58,7 @@ void run_fcfs_queue(int number_of_processes){
 
         process_table[new_event.pid - 1].termination_time = current_time;
     }
+
 
     for(i = 0;i < fcfs_queue.number_of_completed_events; i++){
         // Traverse through completed events
